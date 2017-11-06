@@ -1,0 +1,10 @@
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\bin\Debug\TestFrameworkApp.exe.config
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\bin\Debug\TestFrameworkApp.exe
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\bin\Debug\TestFrameworkApp.pdb
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\bin\Debug\Safaricom.Api.Core.dll
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\bin\Debug\Newtonsoft.Json.dll
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\bin\Debug\Newtonsoft.Json.xml
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\obj\Debug\TestFrameworkApp.csprojResolveAssemblyReference.cache
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\obj\Debug\TestFrameworkApp.csproj.CoreCompileInputs.cache
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\obj\Debug\TestFrameworkApp.exe
+J:\dev-cipher\Safaricom\TestFrameworkApp\TestFrameworkApp\obj\Debug\TestFrameworkApp.pdb
