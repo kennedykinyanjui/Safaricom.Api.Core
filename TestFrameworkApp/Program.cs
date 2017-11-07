@@ -212,7 +212,7 @@
             if (_response.ErrorCode == null)
             {
                 Console.WriteLine("===========================================");
-                Console.WriteLine("===Transaction Status Success Response=====");
+                Console.WriteLine("=====Reversal Request Success Response=====");
                 Console.WriteLine("===========================================");
 
                 Console.WriteLine(Environment.NewLine);
@@ -223,7 +223,7 @@
             else
             {
                 Console.WriteLine("===========================================");
-                Console.WriteLine("=====Transaction Status Error Response=====");
+                Console.WriteLine("======Reversal Request Error Response======");
                 Console.WriteLine("===========================================");
 
                 Console.WriteLine(Environment.NewLine);
