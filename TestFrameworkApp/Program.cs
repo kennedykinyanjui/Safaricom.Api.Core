@@ -10,11 +10,8 @@
 
     class Program
     {
-        //private const string consumerKey = "<CONSUMER KEY HERE>";
-        //private const string consumerSecret = "<CONSUMER SECRET HERE>";
-
-        private const string _consumerKey = "VSjc13kefLJtZERAgUHZ0Rurk5AXeqib";
-        private const string _consumerSecret = "cBD5k90cRFNK42xz";
+        private const string _consumerKey = "<CONSUMER KEY HERE>";
+        private const string _consumerSecret = "<CONSUMER SECRET HERE>";
 
         static SafaricomApiClient _safaricomApiClient = new SafaricomApiClient(_consumerKey, _consumerSecret, ApiEnvironment.SandBox);
 
@@ -25,6 +22,7 @@
                 B2CAsync().Wait();
                 B2BAsync().Wait();
                 AccountBalanceAsync().Wait();
+                TransactionStatusRequestAsync().Wait();
 
                 Console.WriteLine("Api Call Was Successful!");
             }
@@ -140,6 +138,45 @@
             {
                 Console.WriteLine("===========================================");
                 Console.WriteLine("======Account Balance Error Response=======");
+                Console.WriteLine("===========================================");
+
+                Console.WriteLine(Environment.NewLine);
+                Console.WriteLine(_response.ErrorCode + Environment.NewLine + _response.ErrorMessage + Environment.NewLine + _response.ErrorRequestId);
+                Console.WriteLine(Environment.NewLine);
+            }
+
+            return _response;
+        }
+
+        static async Task<TransactionStatusResponse> TransactionStatusRequestAsync()
+        {
+            TransactionStatusRequest _transactionStatusRequest = new TransactionStatusRequest()
+                           .AsSecurityCredential("Safaricom481$")
+                           .AsEntity("testapi481", "600481")
+                           .AsAmount(1000)
+                           .AsIdentifierType(1)
+                           .AsCommandID("TransactionStatusQuery")
+                           .AsComments("Test", "Test")
+                           .AsTransactionID("LKXXXX1234")
+                           .AsEndpoints("https://safaricom.api", "https://safaricom.api");
+
+            TransactionStatusResponse _response = await _safaricomApiClient.PostPaymentRequestAsync(_transactionStatusRequest);
+
+            if (_response.ErrorCode == null)
+            {
+                Console.WriteLine("===========================================");
+                Console.WriteLine("===Transaction Status Success Response=====");
+                Console.WriteLine("===========================================");
+
+                Console.WriteLine(Environment.NewLine);
+                Console.WriteLine(_response.OriginatorConversationID + Environment.NewLine + _response.ConversationID + Environment.NewLine + _response.ResponseDescription);
+                Console.WriteLine(Environment.NewLine);
+            }
+
+            else
+            {
+                Console.WriteLine("===========================================");
+                Console.WriteLine("=====Transaction Status Error Response=====");
                 Console.WriteLine("===========================================");
 
                 Console.WriteLine(Environment.NewLine);
