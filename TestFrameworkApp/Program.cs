@@ -1,11 +1,13 @@
 ﻿namespace TestFrameworkApp
 {
+    using Newtonsoft.Json;
     using Safaricom.Api.Core;
     using Safaricom.Api.Core.Types;
     using Safaricom.Api.Core.Types.Requests;
     using Safaricom.Api.Core.Types.Responses;
 
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     class Program
@@ -23,6 +25,7 @@
                 B2BAsync().Wait();
                 AccountBalanceAsync().Wait();
                 TransactionStatusRequestAsync().Wait();
+                ReversalRequestAsync().Wait();
 
                 Console.WriteLine("Api Call Was Successful!");
             }
@@ -161,6 +164,50 @@
                            .AsEndpoints("https://safaricom.api", "https://safaricom.api");
 
             TransactionStatusResponse _response = await _safaricomApiClient.PostPaymentRequestAsync(_transactionStatusRequest);
+
+            if (_response.ErrorCode == null)
+            {
+                Console.WriteLine("===========================================");
+                Console.WriteLine("===Transaction Status Success Response=====");
+                Console.WriteLine("===========================================");
+
+                Console.WriteLine(Environment.NewLine);
+                Console.WriteLine(_response.OriginatorConversationID + Environment.NewLine + _response.ConversationID + Environment.NewLine + _response.ResponseDescription);
+                Console.WriteLine(Environment.NewLine);
+            }
+
+            else
+            {
+                Console.WriteLine("===========================================");
+                Console.WriteLine("=====Transaction Status Error Response=====");
+                Console.WriteLine("===========================================");
+
+                Console.WriteLine(Environment.NewLine);
+                Console.WriteLine(_response.ErrorCode + Environment.NewLine + _response.ErrorMessage + Environment.NewLine + _response.ErrorRequestId);
+                Console.WriteLine(Environment.NewLine);
+            }
+
+            return _response;
+        }
+
+        static async Task<ReversalResponse> ReversalRequestAsync()
+        {
+            Dictionary<string, string> _parameters = new Dictionary<string, string>();
+            _parameters.Add("Initiator", "testapi481");
+            _parameters.Add("SecurityCredential", "Safaricom481$");
+            _parameters.Add("CommandID", "TransactionReversal");
+            _parameters.Add("TransactionID", "LKXXXX1234");
+            _parameters.Add("Amount", 1000.ToString());
+            _parameters.Add("ReceiverParty", "600481");
+            _parameters.Add("RecieverIdentifierType", "4");
+            _parameters.Add("ResultURL", "https://safaricom.api");
+            _parameters.Add("QueueTimeOutURL", "https://safaricom.api");
+            _parameters.Add("Remarks", "Test");
+            _parameters.Add("Occasion", "Test");
+
+            string _reversalResponse = await _safaricomApiClient.Execute("mpesa/reversal/v1/request", _parameters);
+
+            ReversalResponse _response = JsonConvert.DeserializeObject<ReversalResponse>(_reversalResponse);
 
             if (_response.ErrorCode == null)
             {
